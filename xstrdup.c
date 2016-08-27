@@ -15,8 +15,8 @@ obtain memory.
 
 #include <sys/types.h>
 #include <string.h>
-#include "third_party/libiberty/ansidecl.h"
-#include "third_party/libiberty/libiberty.h"
+#include "ansidecl.h"
+#include "libiberty.h"
 
 char *
 xstrdup (const char *s)

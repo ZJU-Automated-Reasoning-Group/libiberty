@@ -115,10 +115,10 @@ sets of characters:
 
 */
 
-#include "third_party/libiberty/safe-ctype.h"
+#include "safe-ctype.h"
 
 #include <stdio.h>  /* for EOF */
-#include "third_party/libiberty/ansidecl.h"
+#include "ansidecl.h"
 
 #if EOF != -1
  #error "<safe-ctype.h> requires EOF == -1"

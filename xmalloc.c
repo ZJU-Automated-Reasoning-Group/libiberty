@@ -64,8 +64,8 @@ function will be called to print an error message and terminate execution.
 #include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "third_party/libiberty/ansidecl.h"
-#include "third_party/libiberty/libiberty.h"
+#include "ansidecl.h"
+#include "libiberty.h"
 
 /* The program name if set.  */
 static const char *name = "";

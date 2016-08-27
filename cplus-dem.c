@@ -39,18 +39,18 @@ Boston, MA 02110-1301, USA.  */
 /* This file lives in both GCC and libiberty.  When making changes, please
    try not to break either.  */
 
-#include "third_party/libiberty/safe-ctype.h"
+#include "safe-ctype.h"
 
 #include <sys/types.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "third_party/libiberty/demangle.h"
+#include "demangle.h"
 #undef CURRENT_DEMANGLING_STYLE
 #define CURRENT_DEMANGLING_STYLE work->options
 
-#include "third_party/libiberty/libiberty.h"
+#include "libiberty.h"
 
 #define min(X,Y) (((X) < (Y)) ? (X) : (Y))
 

@@ -1,7 +1,7 @@
 # Path to top level of LLVM hierarchy
-LEVEL = ../../..
+LEVEL = ../..
 
-LIBRARYNAME = PPthird_libiberty
+LIBRARYNAME = libiberty
 BUILD_ARCHIVE = 1
 
 #ifneq ($(OS),Cygwin)

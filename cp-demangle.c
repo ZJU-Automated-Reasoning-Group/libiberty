@@ -115,10 +115,10 @@ extern char *alloca ();
 # endif /* alloca */
 #endif /* HAVE_ALLOCA_H */
 
-#include "third_party/libiberty/ansidecl.h"
-#include "third_party/libiberty/libiberty.h"
-#include "third_party/libiberty/demangle.h"
-#include "third_party/libiberty/cp-demangle.h"
+#include "ansidecl.h"
+#include "libiberty.h"
+#include "demangle.h"
+#include "cp-demangle.h"
 
 /* If IN_GLIBCPP_V3 is defined, some functions are made static.  We
    also rename them via #define to avoid compiler errors when the

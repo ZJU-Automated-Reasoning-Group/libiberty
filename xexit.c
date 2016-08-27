@@ -31,7 +31,7 @@ Termination is handled via the system's normal @code{exit} call.
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "third_party/libiberty/libiberty.h"
+#include "libiberty.h"
 
 
 /* This variable is set by xatexit if it is called.  This way, xmalloc

@@ -40,10 +40,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "third_party/libiberty/ansidecl.h"
-#include "third_party/libiberty/cp-demangle.h"
-#include "third_party/libiberty/demangle.h"
-#include "third_party/libiberty/libiberty.h"
+#include "ansidecl.h"
+#include "cp-demangle.h"
+#include "demangle.h"
+#include "libiberty.h"
 
 /* Fill in most component types.  */
 
