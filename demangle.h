@@ -179,9 +179,11 @@ enum gnu_v3_ctor_kinds {
 /* Return non-zero iff NAME is the mangled form of a constructor name
    in the G++ V3 ABI demangling style.  Specifically, return an `enum
    gnu_v3_ctor_kinds' value indicating what kind of constructor
-   it is.  */
+   it is.
+   If consider_thunk != 0, treat a thunk to a ctor as a ctor.
+   */
 extern enum gnu_v3_ctor_kinds
-	is_gnu_v3_mangled_ctor (const char *name);
+	is_gnu_v3_mangled_ctor (const char *name, int consider_thunk);
 
 
 enum gnu_v3_dtor_kinds {
@@ -196,7 +198,7 @@ enum gnu_v3_dtor_kinds {
    gnu_v3_dtor_kinds' value, indicating what kind of destructor
    it is.  */
 extern enum gnu_v3_dtor_kinds
-	is_gnu_v3_mangled_dtor (const char *name);
+	is_gnu_v3_mangled_dtor (const char *name, int consider_thunk);
 
 /* The V3 demangler works in two passes.  The first pass builds a tree
    representation of the mangled name, and the second pass turns the

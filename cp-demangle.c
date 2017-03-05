@@ -5653,7 +5653,8 @@ java_demangle_v3_callback (const char *mangled,
 static int
 is_ctor_or_dtor (const char *mangled,
                  enum gnu_v3_ctor_kinds *ctor_kind,
-                 enum gnu_v3_dtor_kinds *dtor_kind)
+                 enum gnu_v3_dtor_kinds *dtor_kind,
+                 int consider_thunk)
 {
   struct d_info di;
   struct demangle_component *dc;
@@ -5713,6 +5714,12 @@ is_ctor_or_dtor (const char *mangled,
 	    ret = 1;
 	    dc = NULL;
 	    break;
+	  case DEMANGLE_COMPONENT_THUNK:
+	  case DEMANGLE_COMPONENT_VIRTUAL_THUNK:
+	      if (consider_thunk) {
+	          dc = d_left (dc);
+	          break;
+	      }
 	  }
       }
   }
@@ -5724,12 +5731,12 @@ is_ctor_or_dtor (const char *mangled,
    name.  A non-zero return indicates the type of constructor.  */
 
 enum gnu_v3_ctor_kinds
-is_gnu_v3_mangled_ctor (const char *name)
+is_gnu_v3_mangled_ctor (const char *name, int consider_thunk)
 {
   enum gnu_v3_ctor_kinds ctor_kind;
   enum gnu_v3_dtor_kinds dtor_kind;
 
-  if (! is_ctor_or_dtor (name, &ctor_kind, &dtor_kind))
+  if (! is_ctor_or_dtor (name, &ctor_kind, &dtor_kind, consider_thunk))
     return (enum gnu_v3_ctor_kinds) 0;
   return ctor_kind;
 }
@@ -5739,12 +5746,12 @@ is_gnu_v3_mangled_ctor (const char *name)
    name.  A non-zero return indicates the type of destructor.  */
 
 enum gnu_v3_dtor_kinds
-is_gnu_v3_mangled_dtor (const char *name)
+is_gnu_v3_mangled_dtor (const char *name, int consider_thunk)
 {
   enum gnu_v3_ctor_kinds ctor_kind;
   enum gnu_v3_dtor_kinds dtor_kind;
 
-  if (! is_ctor_or_dtor (name, &ctor_kind, &dtor_kind))
+  if (! is_ctor_or_dtor (name, &ctor_kind, &dtor_kind, consider_thunk))
     return (enum gnu_v3_dtor_kinds) 0;
   return dtor_kind;
 }
