@@ -5718,8 +5718,11 @@ is_ctor_or_dtor (const char *mangled,
 	  case DEMANGLE_COMPONENT_VIRTUAL_THUNK:
 	      if (consider_thunk) {
 	          dc = d_left (dc);
-	          break;
 	      }
+	      else {
+	          dc = NULL;
+	      }
+	      break;
 	  }
       }
   }
