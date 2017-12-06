@@ -63,7 +63,11 @@ function will be called to print an error message and terminate execution.
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
+
+#ifdef __linux__
 #include <unistd.h>
+#endif // __linux__
+
 #include "ansidecl.h"
 #include "libiberty.h"
 
@@ -81,35 +85,46 @@ void
 xmalloc_set_program_name (const char *s)
 {
   name = s;
+#ifdef __linux__
 #ifdef HAVE_SBRK
   /* Win32 ports other than cygwin32 don't have brk() */
   if (first_break == NULL)
-    first_break = (char *) sbrk (0);
+	  first_break = (char *)sbrk(0);
 #endif /* HAVE_SBRK */
+#endif //__linux__
 }
 
 void
 xmalloc_failed (size_t size)
 {
+#ifdef __linux__
 #ifdef HAVE_SBRK
-  extern char **environ;
-  size_t allocated;
+	extern char **environ;
+	size_t allocated;
 
-  if (first_break != NULL)
-    allocated = (char *) sbrk (0) - first_break;
-  else
-    allocated = (char *) sbrk (0) - (char *) &environ;
-  fprintf (stderr,
-	   "\n%s%sout of memory allocating %lu bytes after a total of %lu bytes\n",
-	   name, *name ? ": " : "",
-	   (unsigned long) size, (unsigned long) allocated);
+	if (first_break != NULL)
+		allocated = (char *)sbrk(0) - first_break;
+	else
+		allocated = (char *)sbrk(0) - (char *)&environ;
+	fprintf(stderr,
+		"\n%s%sout of memory allocating %lu bytes after a total of %lu bytes\n",
+		name, *name ? ": " : "",
+		(unsigned long)size, (unsigned long)allocated);
 #else /* HAVE_SBRK */
+	fprintf(stderr,
+		"\n%s%sout of memory allocating %lu bytes\n",
+		name, *name ? ": " : "",
+		(unsigned long)size);
+#endif /* HAVE_SBRK */
+	xexit(1);
+
+#else // WIN32
   fprintf (stderr,
 	   "\n%s%sout of memory allocating %lu bytes\n",
 	   name, *name ? ": " : "",
 	   (unsigned long) size);
-#endif /* HAVE_SBRK */
   xexit (1);
+#endif // __linux__
 }  
 
 PTR
