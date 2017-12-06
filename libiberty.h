@@ -674,8 +674,10 @@ extern void *C_alloca (size_t) ATTRIBUTE_MALLOC;
 #else
 #ifdef __linux__
 # define alloca(x) C_alloca(x)
-#else // WIN32
+#elif WIN32 // WIN32
 # define alloca(x) malloc(x)
+#else
+#error There are many platform dependent issues for this OS.
 #endif // __linux__
 
 # undef USE_C_ALLOCA

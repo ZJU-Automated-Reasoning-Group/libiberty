@@ -118,12 +118,14 @@ xmalloc_failed (size_t size)
 #endif /* HAVE_SBRK */
 	xexit(1);
 
-#else // WIN32
+#elif WIN32  // WIN32
   fprintf (stderr,
 	   "\n%s%sout of memory allocating %lu bytes\n",
 	   name, *name ? ": " : "",
 	   (unsigned long) size);
   xexit (1);
+#else
+#error There are many platform dependent issues for this OS.
 #endif // __linux__
 }  
 
