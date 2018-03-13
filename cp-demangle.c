@@ -1522,7 +1522,20 @@ d_unqualified_name (struct d_info *di)
 static struct demangle_component *
 d_source_name (struct d_info *di)
 {
-  long len;
+  // Sbrella revision, changing "long len" to "int len to avoid integer overflow"
+  // len can be very large for long has 8 bit
+  // but many user functions using the value "len" use "int" type to catch this value
+  //
+  // Actually, there is a defense in the following :
+  //  if (len <= 0)
+  //    return NULL;
+  //
+  // However, it is possible that the input overflows "int" but does not overflow "long"
+  //   and thus, the defense may not work
+  // Accompany by the aforementioned defense, this change from "long" to "int" type of variable "len" is safe
+  int len;
+  // Change End
+
   struct demangle_component *ret;
 
   len = d_number (di);
