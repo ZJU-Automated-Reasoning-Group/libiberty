@@ -1523,7 +1523,7 @@ static struct demangle_component *
 d_source_name (struct d_info *di)
 {
   // Sbrella revision, changing "long len" to "int len to avoid integer overflow"
-  // len can be very large for long has 8 bit
+  // len can be very large for long has 8 bytes
   // but many user functions using the value "len" use "int" type to catch this value
   //
   // Actually, there is a defense in the following :
