@@ -1,1 +1,1 @@
-PP_ADD_LIBRARY(PPthird_libiberty)
+CB_ADD_LIBRARY(CBthird_libiberty)
