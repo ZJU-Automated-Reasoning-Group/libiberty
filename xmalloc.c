@@ -64,9 +64,9 @@ function will be called to print an error message and terminate execution.
 #include <stddef.h>
 #include <stdlib.h>
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
 #include <unistd.h>
-#endif // __linux__
+#endif
 
 #include "ansidecl.h"
 #include "libiberty.h"
@@ -97,7 +97,13 @@ xmalloc_set_program_name (const char *s)
 void
 xmalloc_failed (size_t size)
 {
-#ifdef __linux__
+#ifdef WIN32  // WIN32
+  fprintf (stderr,
+	   "\n%s%sout of memory allocating %lu bytes\n",
+	   name, *name ? ": " : "",
+	   (unsigned long) size);
+  xexit (1);
+#else
 #ifdef HAVE_SBRK
 	extern char **environ;
 	size_t allocated;
@@ -117,16 +123,7 @@ xmalloc_failed (size_t size)
 		(unsigned long)size);
 #endif /* HAVE_SBRK */
 	xexit(1);
-
-#elif WIN32  // WIN32
-  fprintf (stderr,
-	   "\n%s%sout of memory allocating %lu bytes\n",
-	   name, *name ? ": " : "",
-	   (unsigned long) size);
-  xexit (1);
-#else
-#error There are many platform dependent issues for this OS.
-#endif // __linux__
+#endif // WIN32
 }  
 
 PTR
